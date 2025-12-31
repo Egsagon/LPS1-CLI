@@ -1,0 +1,24 @@
+A CLI for controlling the power state of the Lepro S1 LED 5m strip.
+The goal is to automatically control the state of the strip, e.g.
+combine this script with shell:startup to activate the strip on boot.
+
+Usage:
+    py main.py --update       # Setup the replay. Run this first.
+    py main.py --power on/off # Toggle the strip power.
+
+I originally intended to reverse engineer the whole coms between the
+Lepro app and the strip for advanced color control, but screw this,
+I don't have time for a stupid strip that I don't even use that often.
+The Lepro app is very annoying to use, and the data structure looks
+encrypted or ofbuscated or I don't fucking know I am not a bluetooth
+dev, so BLE packet replay it is.
+
+Every time you cut power to the strip, you need to toggle the power
+switch a few times on your phone in the app (end with ON), then plug
+the phone to your PC and run the update command.
+
+The update command assumes your phone:
+- Has bluetooth HCI logs enabled;
+- Accepts ADB connections from your PC systematically;
+- Is rooted and the ADB shell has root permissions;
+- The HCI file is located in /data/log/bt (for most Samsung phones).
