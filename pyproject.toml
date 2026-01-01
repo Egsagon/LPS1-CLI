@@ -1,0 +1,15 @@
+[project]
+name = "led"
+version = "6047"
+description = "LPS1"
+authors = [
+    {name = "Egsagon", email = "egsagon12@gmail.com"}
+]
+dependencies = ["bleak", "pyshark"]
+
+[build-system]
+requires = ["setuptools", "wheel"]
+build-backend = "setuptools.build_meta"
+
+[tool.setuptools.packages.find]
+where = ["./"]

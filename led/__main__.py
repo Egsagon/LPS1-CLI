@@ -35,6 +35,7 @@ from ppadb.device import Device
 
 ADDRESS = 'fc:01:2c:c2:a6:ba'
 SERVICE = '1e2aa502-7292-4263-a8f1-be907f039a1f'
+REPLAY = os.path.join(os.path.dirname(__file__), 'replay')
 
 def update() -> None:
     '''
@@ -81,7 +82,7 @@ def update() -> None:
     assert len(instructions) == 2, 'Commands not found'
     
     print('Cleaning up')
-    with open('replay', 'w') as file:
+    with open(REPLAY, 'w') as file:
         file.write('\n'.join(instructions))
     
     os.remove('hci.log')
@@ -117,9 +118,9 @@ if __name__ == '__main__':
         print('Hi.')
         exit()
 
-    assert os.path.exists('replay'), 'Run updater first'
+    assert os.path.exists(REPLAY), 'Run updater first'
     
-    with open('replay') as file:
+    with open(REPLAY) as file:
         command = file.read().split()[args.power in ('on', '1')]
     
     # Send command

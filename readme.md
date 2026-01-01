@@ -2,9 +2,17 @@ A CLI for controlling the power state of the Lepro S1 LED 5m strip.
 The goal is to automatically control the state of the strip, e.g.
 combine this script with shell:startup to activate the strip on boot.
 
+Install:
+
+    pip install git+https://github.com/Egsagon/LPS1-CLI.git
+
 Usage:
-    py main.py --update       # Setup the replay. Run this first.
-    py main.py --power on/off # Toggle the strip power.
+
+    # Setup the replay. Run this first.
+    py -m led --update 
+
+    # Toggle the strip power.
+    py -m led --power on/off
 
 I originally intended to reverse engineer the whole coms between the
 Lepro app and the strip for advanced color control, but screw this,
