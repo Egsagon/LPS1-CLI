@@ -26,6 +26,7 @@
 '''
 
 import os
+import time
 import bleak
 import asyncio
 import pyshark
@@ -50,6 +51,9 @@ def update() -> None:
     - Authorize the ADB shell to use root
     - Have HCI snoop already activated
     '''
+
+    print('Starting ADB server')
+    os.system('adb start-server')
 
     print('Connecting to phone')
     adb: Device = Client().devices()[0]
@@ -92,6 +96,7 @@ async def send(command: str) -> None:
     Send an HEX command to the device.
     '''
 
+    start = time.time()
     print('Connecting to device')
     client = bleak.BleakClient(ADDRESS, timeout = 60, pair = True)
     await client.connect(timeout = 60)
@@ -99,8 +104,8 @@ async def send(command: str) -> None:
     print('Sending instruction')
     await client.write_gatt_char(SERVICE, bytes.fromhex(command))
 
-    print('Disconnecting')
     await client.disconnect()
+    print(f'Instruction sent in {time.time() - start}s')
 
 if __name__ == '__main__':
 
